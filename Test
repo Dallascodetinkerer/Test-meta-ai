@@ -1,1 +1,36 @@
 
+#include <stdio.h>
+#define PLANET_COUNT 5
+
+int main() {
+	int player_x = 0, player_y = 0; // starting position on Earth
+	char planet_names[PLANET_COUNT][20] = {
+		"Earth", "Mars", "Jupiter", "Saturn", "Uranus"
+	};
+
+	printf("You are on %s.\n", planet_names[player_x]);
+
+	while (1) {
+		char dir;
+		printf("Enter direction (U, D, L, R): ");
+		scanf(" %c", &dir);
+
+		// update player position
+		switch (dir) {
+		case 'U': player_y--; break;
+		case 'D': player_y++; break;
+		case 'L': player_x--; break;
+		case 'R': player_x++; break;
+		}
+
+		// wrap around planet boundaries
+		if (player_x < 0) player_x = PLANET_COUNT - 1;
+		if (player_x >= PLANET_COUNT) player_x = 0;
+		if (player_y < 0) player_y = PLANET_COUNT - 1;
+		if (player_y >= PLANET_COUNT) player_y = 0;
+
+		printf("You are now on %s.\n", planet_names[player_x]);
+	}
+
+	return 0;
+}
